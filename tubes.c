@@ -46,7 +46,9 @@ void BellmanFord(struct Edge* edges, int V, int E, int source, int destination, 
                     distance[v] = distance[u] + dist;
                     cost[v] = cost[u] + cst; // tetap perbarui biaya
                     predecessor[v] = u;
-                    printf("Iteration %d: Updated Distance[%d] = %d, Cost[%d] = %d\n", i, v, distance[v], v, cost[v]);
+                    printf("Iteration %d, Edge (%d -> %d): Updated Distance[%d] = %d, Cost[%d] = %d, Path: ", i, u + 1, v + 1, v, distance[v], v, cost[v]);
+                    printPath(predecessor, v);
+                    printf("\n");
                 }
             } else if (priority[0] == 'c') {
                 // Perbarui nilai biaya berdasarkan prioritas biaya
@@ -54,7 +56,9 @@ void BellmanFord(struct Edge* edges, int V, int E, int source, int destination, 
                     cost[v] = cost[u] + cst;
                     distance[v] = distance[u] + dist; // tetap perbarui jarak
                     predecessor[v] = u;
-                    printf("Iteration %d: Updated Distance[%d] = %d, Cost[%d] = %d\n", i, v, distance[v], v, cost[v]);
+                    printf("Iteration %d, Edge (%d -> %d): Updated Distance[%d] = %d, Cost[%d] = %d, Path: ", i, u + 1, v + 1, v, distance[v], v, cost[v]);
+                    printPath(predecessor, v);
+                    printf("\n");
                 }
             }
         }
@@ -65,7 +69,7 @@ void BellmanFord(struct Edge* edges, int V, int E, int source, int destination, 
         (priority[0] == 'c' && cost[destination] == INT_MAX)) {
         printf("There is no path from city %d to city %d.\n", source + 1, destination + 1);
     } else {
-        printf("Path: ");
+        printf("Final Path: ");
         printPath(predecessor, destination);
         printf("\n");
         
@@ -100,7 +104,7 @@ void BellmanFord(struct Edge* edges, int V, int E, int source, int destination, 
 int main() {
     int V = 10; // jumlah kota
     int E = 15; // jumlah tepi
-    struct Edge edges[] = {
+      struct Edge edges[] = {
         {0, 1, 10, 5}, {0, 2, 20, 6}, {1, 3, 30, 7}, {1, 4, 40, 10}, {2, 5, 50, 5},
         {2, 5, 10, 7}, {3, 6, 20, 8}, {4, 6, 30, 10}, {4, 7, 40, 6}, {5, 7, 50, 7},
         {6, 8, 10, 5}, {6, 9, 20, 0}, {7, 8, 30, 6}, {7, 9, 40, 5}, {8, 9, 50, 3}
