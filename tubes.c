@@ -106,31 +106,55 @@ int main() {
     int E = 15; // jumlah tepi
       struct Edge edges[] = {
         {0, 1, 10, 5}, {0, 2, 20, 6}, {1, 3, 30, 7}, {1, 4, 40, 10}, {2, 5, 50, 5},
-        {2, 5, 10, 7}, {3, 6, 20, 8}, {4, 6, 30, 10}, {4, 7, 40, 6}, {5, 7, 50, 7},
+        {2, 4, 10, 7}, {3, 6, 20, 8}, {4, 6, 30, 10}, {4, 7, 40, 6}, {5, 7, 50, 7},
         {6, 8, 10, 5}, {6, 9, 20, 0}, {7, 8, 30, 6}, {7, 9, 40, 5}, {8, 9, 50, 3}
     };
 
     int source, destination;
     char priority[20];
+    int userInput = 0;
+    while (userInput != 2) {
+        printf("Enter 1 to continue or 2 to exit: ");
+        scanf("%d", &userInput);
+        if (userInput == 1) {
+            printf("Enter start city (1-10): ");
+            scanf("%d", &source);
+            printf("Enter end city (1-10): ");
+            scanf("%d", &destination);
+            printf("Enter priority (distance/cost): ");
+            scanf("%s", priority);
 
-    printf("Enter start city (1-10): ");
-    scanf("%d", &source);
-    printf("Enter end city (1-10): ");
-    scanf("%d", &destination);
-    printf("Enter priority (distance/cost): ");
-    scanf("%s", priority);
+            if (source < 1 || source > 10 || destination < 1 || destination > 10) {
+                printf("Invalid city index\n");
+                continue;
+            }
 
-    if (source < 1 || source > 10 || destination < 1 || destination > 10) {
-        printf("Invalid city index\n");
-        return 1;
+            if (strcmp(priority, "cost") == 0 || strcmp(priority, "distance") == 0) {
+                BellmanFord(edges, V, E, source - 1, destination - 1, priority);
+            } else {
+                printf("Invalid priority\n");
+                continue;
+            }
+        }
     }
+    // printf("Enter start city (1-10): ");
+    // scanf("%d", &source);
+    // printf("Enter end city (1-10): ");
+    // scanf("%d", &destination);
+    // printf("Enter priority (distance/cost): ");
+    // scanf("%s", priority);
 
-    if (strcmp(priority, "cost") == 0 || strcmp(priority, "distance") == 0) {
-        BellmanFord(edges, V, E, source - 1, destination - 1, priority);
-    } else {
-        printf("Invalid priority\n");
-        return 1;
-    }
+    // if (source < 1 || source > 10 || destination < 1 || destination > 10) {
+    //     printf("Invalid city index\n");
+    //     return 1;
+    // }
+
+    // if (strcmp(priority, "cost") == 0 || strcmp(priority, "distance") == 0) {
+    //     BellmanFord(edges, V, E, source - 1, destination - 1, priority);
+    // } else {
+    //     printf("Invalid priority\n");
+    //     return 1;
+    // }
 
     return 0;
 }
